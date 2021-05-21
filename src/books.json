@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Admirável Mundo Novo",
+    "desc": "Um clássico moderno, o romance distópico de Aldous Huxley é indispensável para quem busca leituras sobre autoritarismo, manipulação genética, ficção especulativa e outros temas que, embora tenham surgido com força durante a primeira metade do século XX, se tornam cada dia mais atuais.",
+    "author": "Aldous Huxley",
+    "publicationDate": 1932
+  },
+  {
+    "id": 2,
+    "title": "1984",
+    "desc": "Uma das obras mais contundentes e influentes do século XX ganha nova e definitiva edição com projeto especial e ampla fortuna crítica. Romance incontornável, 1984 continua sendo o livro ao qual nos voltamos sempre que se mutila a verdade, distorce-se a linguagem e viola-se o poder.",
+    "author": "George Orwell",
+    "releaseDate": 1949
+  }
+]
