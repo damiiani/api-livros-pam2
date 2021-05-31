@@ -1,43 +1,68 @@
 const express = require('express');
+const cors = require('cors');
+const { uuid } = require('uuidv4');
 
 const books = require('./books.json');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.get('/books', (req, res) => {
-  const { author } = req.query;
+  const { title } = req.query;
 
-  if (author) {
-    res.send(books.filter((book) => {
-      return book.author === author;
-    }));
-  }
+  const out = title ? books.filter((book) => book.title.includes(title)) : books;
 
-  res.json(books);
+  return res.json(out);
 });
 
 app.post('/books', (req, res) => {
   const {
+    title, desc, author, releaseDate,
+  } = req.body;
+
+  const book = {
+    id: uuid(), title, desc, author, releaseDate,
+  };
+
+  books.push(book);
+
+  return res.json(book);
+});
+
+app.put('/books', (req, res) => {
+  const {
     id, title, desc, author, releaseDate,
   } = req.body;
+
+  const bookIndex = books.findIndex((book) => book.id === id);
+
+  if (bookIndex < 0) {
+    return res.status(400).json({ error: 'Livro não encontrado.' });
+  }
 
   const book = {
     id, title, desc, author, releaseDate,
   };
 
-  res.json(book);
-});
+  books[bookIndex] = book;
 
-app.put('/books/:id', (req, res) => {
-  res.json(req.params);
+  return res.json(req.params);
 });
 
 app.delete('/books/:id', (req, res) => {
   const { id } = req.params;
 
-  res.json({ id });
+  const bookIndex = books.findIndex((book) => book.id === Number(id));
+
+  if (bookIndex < 0) {
+    return res.status(400).json({ error: 'Livro não encontrado.' });
+  }
+
+  books.splice(bookIndex, 1);
+
+  return res.status(204).json();
 });
 
 app.listen(4000, () => console.log('Servidor online na porta 4000'));
